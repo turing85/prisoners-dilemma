@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>de.turing85</groupId>
+    <artifactId>prisoners-dilemma-bom</artifactId>
+    <version>999-SNAPSHOT</version>
+    <name>Prisoner's Dilemma :: BOM</name>
+    <packaging>pom</packaging>
+
+    <properties>
+        <!-- Plugin Versions -->
+        <formatter-maven-plugin.version>2.23.0</formatter-maven-plugin.version>
+        <impsort-maven-plugin.version>1.9.0</impsort-maven-plugin.version>
+        <maven-compiler-plugin.version>3.12.1</maven-compiler-plugin.version>
+
+        <!-- Dependency Versions -->
+        <lombok.version>1.18.30</lombok.version>
+    </properties>
+</project>
