@@ -1,7 +1,6 @@
 package de.turing85.prisoners.dilemma.engine;
 
 import de.turing85.prisoners.dilemma.api.Response;
-import de.turing85.prisoners.dilemma.api.ResponsePair;
 
 import java.util.Collections;
 import java.util.List;

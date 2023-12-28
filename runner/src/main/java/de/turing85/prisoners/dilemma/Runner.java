@@ -1,9 +1,9 @@
 package de.turing85.prisoners.dilemma;
 
 import de.turing85.prisoners.dilemma.api.Response;
-import de.turing85.prisoners.dilemma.api.ResponsePair;
 import de.turing85.prisoners.dilemma.engine.Engine;
 import de.turing85.prisoners.dilemma.engine.GameResult;
+import de.turing85.prisoners.dilemma.engine.ResponsePair;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -38,10 +38,8 @@ public class Runner {
   }
 
   private static HashMap<String, List<Integer>> transformResults(List<List<GameResult>> runResult) {
-    Set<String> strategyNames = runResult.stream()
-        .flatMap(List::stream)
-        .map(gameREsult -> List.of(gameREsult.first(), gameREsult.second()))
-        .flatMap(List::stream)
+    Set<String> strategyNames = runResult.stream().flatMap(List::stream)
+        .map(gameResult -> List.of(gameResult.first(), gameResult.second())).flatMap(List::stream)
         .collect(Collectors.toSet());
     HashMap<String, List<Integer>> pointsPerRunAndStrategy = new HashMap<>();
     for (String strategyName : strategyNames) {
