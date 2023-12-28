@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.ToIntFunction;
+import java.util.stream.Collectors;
 
 public class Runner {
 
@@ -32,7 +33,16 @@ public class Runner {
   public static void main(String... args) {
     final Engine engine = new Engine(() -> ROUNDS_PER_GAME);
     List<List<GameResult>> runResult = engine.run(ITERATIONS);
-    Set<String> strategyNames = engine.strategyNames();
+    HashMap<String, List<Integer>> pointsPerRunAndStrategy = transformResults(runResult);
+    outputResults(pointsPerRunAndStrategy);
+  }
+
+  private static HashMap<String, List<Integer>> transformResults(List<List<GameResult>> runResult) {
+    Set<String> strategyNames = runResult.stream()
+        .flatMap(List::stream)
+        .map(gameREsult -> List.of(gameREsult.first(), gameREsult.second()))
+        .flatMap(List::stream)
+        .collect(Collectors.toSet());
     HashMap<String, List<Integer>> pointsPerRunAndStrategy = new HashMap<>();
     for (String strategyName : strategyNames) {
       List<Integer> pointsPerRound = new ArrayList<>();
@@ -51,7 +61,7 @@ public class Runner {
       }
       pointsPerRunAndStrategy.put(strategyName, pointsPerRound);
     }
-    outputResults(pointsPerRunAndStrategy);
+    return pointsPerRunAndStrategy;
   }
 
   private static void outputResults(HashMap<String, List<Integer>> pointsPerRunAndStrategy) {
@@ -66,7 +76,7 @@ public class Runner {
             .reversed()
             .thenComparing(Map.Entry::getKey))
         .forEach(entry -> System.out.printf(
-            "%-30s avg: %10.2f%n",
+            "%-30s avg: %13.2f%n",
             entry.getKey() + ":",
             entry.getValue().stream()
                 .mapToInt(Integer::intValue)

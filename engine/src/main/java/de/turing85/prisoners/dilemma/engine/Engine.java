@@ -9,10 +9,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.ServiceLoader;
-import java.util.Set;
 import java.util.function.IntSupplier;
-import java.util.stream.Collectors;
 
 public class Engine {
   private static final ServiceLoader<Strategy> STRATEGY_LOADER = ServiceLoader.load(Strategy.class);
@@ -81,17 +80,13 @@ public class Engine {
     first.startGame();
     second.startGame();
     for (int round = 0; round < rounds; ++round) {
-      Response firstResponse = first.playRound();
-      Response secondResponse = second.playRound();
+      Response firstResponse = Objects.requireNonNull(first.playRound());
+      Response secondResponse = Objects.requireNonNull(second.playRound());
       firstResponses.add(firstResponse);
       secondResponses.add(secondResponse);
       first.endRound(secondResponse);
       second.endRound(firstResponse);
     }
     return new GameResult(first.name(), firstResponses, second.name(), secondResponses);
-  }
-
-  public Set<String> strategyNames() {
-    return strategies().stream().map(Strategy::name).collect(Collectors.toSet());
   }
 }
